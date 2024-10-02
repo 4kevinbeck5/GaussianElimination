@@ -11,7 +11,6 @@
 
 import ctypes
 import numpy as np
-from scipy.linalg import hilbert
 
 # Load the shared library
 lib = ctypes.CDLL('./libgauss.so')
