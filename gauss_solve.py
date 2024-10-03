@@ -65,13 +65,13 @@ def plu(A, use_c=False):
     if use_c:
         flat_array_2d = [item for row in A for item in row]
         A_c_version = (ctypes.c_double * len(flat_array_2d))(*flat_array_2d)
-        P = (ctypes.c_int * n)()
+        P_c_version = (ctypes.c_int * n)()
 
         # Define function signature
         lib.plu.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int))
 
         # Do PA=LU in C to c_array_2d
-        lib.plu(n, A_c_version, P)
+        lib.plu(n, A_c_version, P_c_version)
 
         # Convert A back to a 2D Python list of lists
         modified_array_2d = [
@@ -89,6 +89,8 @@ def plu(A, use_c=False):
             [ 0 for j in range(i) ] + [ modified_array_2d[i][j] for j in range(i, n) ]
             for i in range(n)
         ]
+        
+        P = list(P_c_version)
     # Use Python version
     else:
         # Initialize matrices
