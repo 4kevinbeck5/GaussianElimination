@@ -13,7 +13,7 @@ import ctypes
 import numpy as np
 
 # Load the shared library
-# lib = ctypes.CDLL('./libgauss.so')
+lib = ctypes.CDLL('./libgauss.so')
 
  
 def lu(A):
