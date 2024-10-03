@@ -13,7 +13,7 @@ import ctypes
 import numpy as np
 
 # Load the shared library
-lib = ctypes.CDLL('./libgauss.so')
+# lib = ctypes.CDLL('./libgauss.so')
 
  
 def lu(A):
@@ -65,17 +65,13 @@ def plu(A, use_c=False):
     if use_c:
         flat_array_2d = [item for row in A for item in row]
         A_c_version = (ctypes.c_double * len(flat_array_2d))(*flat_array_2d)
-        P_c_version = (ctypes.c_int * n)()
+        P = (ctypes.c_int * n)()
 
         # Define function signature
         lib.plu.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int))
 
         # Do PA=LU in C to c_array_2d
-        lib.plu(n, A_c_version, P_c_version)
-
-        # Convert P, A back to python form
-        P = list(P_c_version)
-        A = list(A_c_version)
+        lib.plu(n, A_c_version, P)
 
         # Convert A back to a 2D Python list of lists
         modified_array_2d = [
@@ -126,4 +122,4 @@ if __name__ == "__main__":
          [14.0, 30.0, 34.0],
          [2.0, 3.0, 3.0]];
 
-    P, L, U = plu(A, use_c=True)
+    P, L, U = plu(A, use_c=False)
