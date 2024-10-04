@@ -112,9 +112,9 @@ def plu(A, use_c=False):
                 U[i] = U[i] - L[i, k] * U[k]
         
         # Add ones to diagonal of L and convert matrices to correct return form
-        L = np.array((L + np.eye(n)).tolist())
-        P = np.array(P_np.astype(int).tolist())
-        U = np.array(U.tolist())
+        L = (L + np.eye(n))
+        P = P_np.astype(int)
+        U = U
         
     return P, L, U
 
