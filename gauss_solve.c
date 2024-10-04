@@ -9,7 +9,7 @@
 *----------------------------------------------------------------*/
 
 #include <math.h>
-
+#include "helpers.h"
 void gauss_solve_in_place(const int n, double A[n][n], double b[n])
 {
   for(int k = 0; k < n; ++k) {
@@ -73,7 +73,7 @@ void plu(int n, double A[n][n], int P[n]) {
     for (int i = 0; i < n; i++) {
         P[i] = i;
     }
-
+    
     // Main loop over each column
     for (int k = 0; k < n - 1; k++) {
         // Find the pivot element
