@@ -100,12 +100,12 @@ void plu(int n, double A[n][n], int P[n]) {
             P[k] = P[r];
             P[r] = tempP;
 
-            // Swap elements in L (columns 0 to k-1)
-            for (int j = 0; j < k; j++) {
-                double temp = A[k][j];
-                A[k][j] = A[r][j];
-                A[r][j] = temp;
-            }
+            // // Swap elements in L (columns 0 to k-1)
+            // for (int j = 0; j < k; j++) {
+            //     double temp = A[k][j];
+            //     A[k][j] = A[r][j];
+            //     A[r][j] = temp;
+            // }
         }
 
         // Compute the multipliers and update the matrix

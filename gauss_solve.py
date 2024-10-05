@@ -57,7 +57,8 @@ def lu(A, use_c=False):
 
         for k in range(n):
             for i in range(k, n):
-                U[k, i] = A[k][i] - np.sum(L[k,j]*U[j,k] for j in range(k))
+                # U[k, i] = A[k][i] - np.sum(L[k,j]*U[j,k] for j in range(k))
+                U[k, i] = A[k][i] - np.sum(L[k,j]*U[j,i] for j in range(k))
             for i in range(k+1, n):
                 L[i, k] = (A[i][k] - np.sum(L[i,j]*U[j,k] for j in range(k)))/U[k, k]
             L[k, k] = 1
@@ -140,3 +141,4 @@ if __name__ == "__main__":
     L1, U1 = lu(A, use_c=False)
 
     P, L, U = plu(A, use_c=True)
+    
