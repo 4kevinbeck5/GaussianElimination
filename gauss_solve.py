@@ -51,34 +51,18 @@ def lu(A, use_c=False):
             for i in range(n)
         ]
     else:
+        # Initialize matrices
+        L = np.zeros((n,n))
+        U = np.zeros((n,n))
+
         for k in range(n):
-            A = np.array(A)
-            L = np.zeros((n,n))
-            U = np.zeros((n,n))
-            if k == 0:
-                U[k, k:] = A[k, k:]
-            else:
-                U[k, k:] = A[k, k:] - np.dot(L[k, :k], U[:k, k:])
-            L[k, k] = 1.0
-            if k < n - 1:
-                if k == 0:
-                    L[k+1:, k] = A[k+1:, k] / U[k, k]
-                else:
-                    L[k+1:, k] = (A[k+1:, k] - np.dot(L[k+1:, :k], U[:k, k])) / U[k, k]
+            for i in range(k, n):
+                U[k, i] = A[k][i] - np.dot(L[k,:k],U[:k,i])
+            for i in range(k+1, n):
+                L[i, k] = (A[i][k] - np.dot(L[i,:k],U[:k,k]))/U[k, k]
+            L[k, k] = 1
         L = L.tolist()
         U = U.tolist()
-        # # Initialize matrices
-        # L = np.zeros((n,n))
-        # U = np.zeros((n,n))
-
-        # for k in range(n):
-        #     for i in range(k, n):
-        #         U[k, i] = A[k][i] - np.sum(L[k,j]*U[j,i] for j in range(k))
-        #     for i in range(k+1, n):
-        #         L[i, k] = (A[i][k] - np.sum(L[i,j]*U[j,k] for j in range(k)))/U[k, k]
-        #     L[k, k] = 1
-        # L = L.tolist()
-        # U = U.tolist()
     return L, U
 
 def plu(A, use_c=False):
