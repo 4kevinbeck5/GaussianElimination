@@ -52,6 +52,9 @@ def lu(A, use_c=False):
         ]
     else:
         for k in range(n):
+            A = np.array(A)
+            L = np.zeros((n,n))
+            U = np.zeros((n,n))
             if k == 0:
                 U[k, k:] = A[k, k:]
             else:
